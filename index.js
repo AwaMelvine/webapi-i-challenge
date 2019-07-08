@@ -76,7 +76,7 @@ app.delete("/api/users/:id", (req, res) => {
       res.status(200).json({ data: count });
     })
     .catch(error => {
-      console.log(error);
+      res.status(500).json({ error: "The user could not be removed" });
     });
 });
 
