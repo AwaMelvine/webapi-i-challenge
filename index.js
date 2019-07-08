@@ -14,4 +14,15 @@ app.get("/api/users", (req, res) => {
     });
 });
 
+app.get("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+  User.findById(id)
+    .then(user => {
+      res.status(200).json({ data: user });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 app.listen(8080, () => console.log("Server running at localhost:8080"));
