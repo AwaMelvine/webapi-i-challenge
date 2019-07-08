@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import UserList from "./UserList";
 
 const serverUrl = "http://localhost:8080";
 
@@ -22,7 +23,7 @@ class UsersContainer extends Component {
       });
   }
   render() {
-    return <UserList users={this.state.users}>;
+    return <UserList users={this.state.users} />;
   }
 }
 
