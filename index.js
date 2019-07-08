@@ -36,4 +36,15 @@ app.post("/api/users", (req, res) => {
     });
 });
 
+app.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params;
+  User.remove(id)
+    .then(count => {
+      res.status(200).json({ data: count });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 app.listen(8080, () => console.log("Server running at localhost:8080"));
