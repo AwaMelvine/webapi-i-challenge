@@ -55,12 +55,26 @@ app.post("/api/users", (req, res) => {
 app.put("/api/users/:id", (req, res) => {
   const { body } = req;
   const { id } = req.params;
+
+  if (!body.name || !body.bio) {
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
+
   User.update(id, body)
     .then(id => {
+      if (!id) {
+        return res
+          .status(404)
+          .json({ message: "The user with the specified ID does not exist." });
+      }
       res.status(201).json({ data: id });
     })
     .catch(error => {
-      console.log(error);
+      res
+        .status(500)
+        .json({ error: "The user information could not be modified." });
     });
 });
 
