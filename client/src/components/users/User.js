@@ -2,10 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledUser = styled.div`
-  border: 1px solid #d3d3d3;
+  border: 1px solid #e0e0e0;
   margin-top: 1rem;
   padding: 0.5rem;
   position: relative;
+  -webkit-box-shadow: 10px 10px 5px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px -10px rgba(0, 0, 0, 0.75);
 
   h3 {
     margin: 0px;
