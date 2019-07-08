@@ -57,7 +57,11 @@ class UserForm extends Component {
       this.props.updateUser(this.state);
       this.setState({ name: "", bio: "", id: "" });
     } else {
-      this.props.addUser(this.state);
+      const user = {
+        name: this.state.name,
+        bio: this.state.bio
+      };
+      this.props.addUser(user);
       this.setState({ name: "", bio: "" });
     }
   };
