@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import UserList from "./UserList";
+import UserForm from "./UserForm";
 
 const serverUrl = "http://localhost:8080";
 
@@ -23,7 +24,12 @@ class UsersContainer extends Component {
       });
   }
   render() {
-    return <UserList users={this.state.users} />;
+    return (
+      <React.Fragment>
+        <UserForm />
+        <UserList users={this.state.users} />
+      </React.Fragment>
+    );
   }
 }
 
