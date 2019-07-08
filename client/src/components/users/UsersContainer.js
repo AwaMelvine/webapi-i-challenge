@@ -38,11 +38,23 @@ class UsersContainer extends Component {
         console.log(error);
       });
   };
+
+  deleteUser = id => {
+    axios
+      .delete(`${serverUrl}/api/users/${id}`)
+      .then(res => {
+        this.getUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <React.Fragment>
         <UserForm addUser={this.addUser} />
-        <UserList users={this.state.users} />
+        <UserList users={this.state.users} deleteUser={this.deleteUser} />
       </React.Fragment>
     );
   }
