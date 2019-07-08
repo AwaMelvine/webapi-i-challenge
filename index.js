@@ -36,6 +36,18 @@ app.post("/api/users", (req, res) => {
     });
 });
 
+app.put("/api/users/:id", (req, res) => {
+  const { body } = req;
+  const { id } = req.params;
+  User.update(id, body)
+    .then(id => {
+      res.status(201).json({ data: id });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 app.delete("/api/users/:id", (req, res) => {
   const { id } = req.params;
   User.remove(id)
