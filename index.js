@@ -25,4 +25,15 @@ app.get("/api/users/:id", (req, res) => {
     });
 });
 
+app.post("/api/users", (req, res) => {
+  const { body } = req;
+  User.insert(body)
+    .then(id => {
+      res.status(201).json({ data: id });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 app.listen(8080, () => console.log("Server running at localhost:8080"));
