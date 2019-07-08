@@ -10,7 +10,8 @@ class UsersContainer extends Component {
     super(props);
 
     this.state = {
-      users: []
+      users: [],
+      currentUser: null
     };
   }
   componentDidMount() {
@@ -50,11 +51,54 @@ class UsersContainer extends Component {
       });
   };
 
+  getUserById = id => {
+    axios
+      .get(`${serverUrl}/api/users/${id}`)
+      .then(res => {
+        this.setState({
+          ...this.state,
+          currentUser: res.data.data,
+          editing: true
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  updateUser = user => {
+    const newUser = {
+      name: user.name,
+      bio: user.bio
+    };
+    const { id } = user;
+    axios
+      .put(`${serverUrl}/api/users/${id}`, newUser)
+      .then(res => {
+        this.getUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .finally(() => this.setState({ editing: false, currentUser: null }));
+  };
+
   render() {
+    const { users, currentUser, editing } = this.state;
     return (
       <React.Fragment>
-        <UserForm addUser={this.addUser} />
-        <UserList users={this.state.users} deleteUser={this.deleteUser} />
+        <UserForm
+          addUser={this.addUser}
+          updateUser={this.updateUser}
+          currentUser={currentUser}
+          users={users}
+          editing={editing}
+        />
+        <UserList
+          users={users}
+          deleteUser={this.deleteUser}
+          getUserById={this.getUserById}
+        />
       </React.Fragment>
     );
   }

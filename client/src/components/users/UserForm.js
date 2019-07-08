@@ -4,23 +4,43 @@ class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      bio: ""
+      id: props.currentUser ? props.currentUser.id : "",
+      name: props.currentUser ? props.currentUser.name : "",
+      bio: props.currentUser ? props.currentUser.bio : ""
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    const { currentUser } = nextProps;
+    if (currentUser) {
+      debugger;
+      this.setState({
+        id: currentUser.id,
+        name: currentUser.name,
+        bio: currentUser.bio
+      });
+    }
+  }
+
   change = e => {
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };
   submit = e => {
     e.preventDefault();
-    this.props.addUser(this.state);
-    this.setState({ name: "", bio: "" });
+    if (this.props.editing) {
+      this.props.updateUser(this.state);
+      this.setState({ name: "", bio: "", id: "" });
+    } else {
+      this.props.addUser(this.state);
+      this.setState({ name: "", bio: "" });
+    }
   };
   render() {
     const { name, bio } = this.state;
+    const { editing } = this.props;
     return (
       <form method="post" onSubmit={this.submit}>
-        <h2>Create User</h2>
+        {editing ? <h2>Update User</h2> : <h2>Create User</h2>}
         <div>
           <input
             type="text"
@@ -39,7 +59,11 @@ class UserForm extends Component {
           />
         </div>
         <div>
-          <button type="submit">Create User</button>
+          {editing ? (
+            <button type="submit">Update User</button>
+          ) : (
+            <button type="submit">Create User</button>
+          )}
         </div>
       </form>
     );
