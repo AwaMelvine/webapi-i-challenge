@@ -69,7 +69,7 @@ app.put("/api/users/:id", (req, res) => {
           .status(404)
           .json({ message: "The user with the specified ID does not exist." });
       }
-      res.status(201).json({ data: id });
+      res.status(200).json({ data: id });
     })
     .catch(error => {
       res
