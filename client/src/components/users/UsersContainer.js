@@ -14,6 +14,10 @@ class UsersContainer extends Component {
     };
   }
   componentDidMount() {
+    this.getUsers();
+  }
+
+  getUsers() {
     axios
       .get(`${serverUrl}/api/users`)
       .then(res => {
@@ -23,10 +27,21 @@ class UsersContainer extends Component {
         console.log(error);
       });
   }
+
+  addUser = user => {
+    axios
+      .post(`${serverUrl}/api/users`, user)
+      .then(res => {
+        this.getUsers();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   render() {
     return (
       <React.Fragment>
-        <UserForm />
+        <UserForm addUser={this.addUser} />
         <UserList users={this.state.users} />
       </React.Fragment>
     );
