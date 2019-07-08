@@ -10,7 +10,9 @@ app.get("/api/users", (req, res) => {
       res.status(200).json({ data: users });
     })
     .catch(error => {
-      console.log(error);
+      res
+        .status(500)
+        .json({ error: "The users information could not be retrieved." });
     });
 });
 
@@ -21,11 +23,9 @@ app.get("/api/users/:id", (req, res) => {
       res.status(200).json({ data: user });
     })
     .catch(error => {
-      res
-        .status(500)
-        .json({
-          error: "There was an error while saving the user to the database"
-        });
+      res.status(500).json({
+        error: "There was an error while saving the user to the database"
+      });
     });
 });
 
