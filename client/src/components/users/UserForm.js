@@ -1,4 +1,31 @@
 import React, { Component } from "react";
+import styled from "styled-components";
+
+const StyledForm = styled.form`
+  input,
+  textarea,
+  button {
+    width: 100%;
+    margin-bottom: 0.8rem;
+    padding: 12px;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: lighter;
+  }
+
+  button {
+    background: #0aa774;
+    border: 1px solid transparent;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background: #067551;
+    }
+  }
+`;
 
 class UserForm extends Component {
   constructor(props) {
@@ -13,7 +40,6 @@ class UserForm extends Component {
   componentWillReceiveProps(nextProps) {
     const { currentUser } = nextProps;
     if (currentUser) {
-      debugger;
       this.setState({
         id: currentUser.id,
         name: currentUser.name,
@@ -39,7 +65,7 @@ class UserForm extends Component {
     const { name, bio } = this.state;
     const { editing } = this.props;
     return (
-      <form method="post" onSubmit={this.submit}>
+      <StyledForm method="post" onSubmit={this.submit}>
         {editing ? <h2>Update User</h2> : <h2>Create User</h2>}
         <div>
           <input
@@ -65,7 +91,7 @@ class UserForm extends Component {
             <button type="submit">Create User</button>
           )}
         </div>
-      </form>
+      </StyledForm>
     );
   }
 }

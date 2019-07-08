@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import UserList from "./UserList";
 import UserForm from "./UserForm";
+import styled from "styled-components";
+
+const StyledContainer = styled.div`
+  * {
+    box-sizing: border-box;
+  }
+  width: 30%;
+  margin: 1rem auto 1rem;
+`;
 
 const serverUrl = "http://localhost:8080";
 
@@ -86,7 +95,7 @@ class UsersContainer extends Component {
   render() {
     const { users, currentUser, editing } = this.state;
     return (
-      <React.Fragment>
+      <StyledContainer>
         <UserForm
           addUser={this.addUser}
           updateUser={this.updateUser}
@@ -99,7 +108,7 @@ class UsersContainer extends Component {
           deleteUser={this.deleteUser}
           getUserById={this.getUserById}
         />
-      </React.Fragment>
+      </StyledContainer>
     );
   }
 }
