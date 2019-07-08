@@ -14,11 +14,15 @@ class UsersContainer extends Component {
   componentDidMount() {
     axios
       .get(`${serverUrl}/api/users`)
-      .then(data => {})
-      .catch(error => {});
+      .then(res => {
+        this.setState({ users: res.data.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
   render() {
-    return <div />;
+    return <UserList users={this.state.users}>;
   }
 }
 
