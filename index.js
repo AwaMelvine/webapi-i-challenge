@@ -21,12 +21,21 @@ app.get("/api/users/:id", (req, res) => {
       res.status(200).json({ data: user });
     })
     .catch(error => {
-      console.log(error);
+      res
+        .status(500)
+        .json({
+          error: "There was an error while saving the user to the database"
+        });
     });
 });
 
 app.post("/api/users", (req, res) => {
   const { body } = req;
+  if (!body.name || !body.bio) {
+    res
+      .status(400)
+      .json({ errorMessage: "Please provide name and bio for the user." });
+  }
   User.insert(body)
     .then(id => {
       res.status(201).json({ data: id });
